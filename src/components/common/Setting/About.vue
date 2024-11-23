@@ -5,6 +5,7 @@ import pkg from '../../../../package.json'
 import { fetchChatConfig ,getLastVersion} from '@/api'
 import { useAuthStore } from '@/store'
 import { gptUsage  } from "@/api";
+const isBltcy = import.meta.env.VITE_GLOB_APP_IS_BLTCY ?? false
 
 interface ConfigState {
   timeoutMs?: number
@@ -72,21 +73,17 @@ onMounted( () => {
     });
   }
 })
-const  isShow = computed(()=>{
-  return st.value.lastVersion && st.value.lastVersion != `v${pkg.version}`
-});
+
 </script>
 
 <template>
   <NSpin :show="loading">
     <div class="p-4 space-y-4">
       <h2 class="text-xl font-bold">
-        Version - {{ pkg.version }}
-        <a class="text-red-500" href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" target="_blank" v-if=" isShow  "> ({{ $t('mj.findVersion') }} {{ st.lastVersion }})</a>
-        <a class="text-gray-500" href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" target="_blank" v-else-if="st.lastVersion"> ({{ $t('mj.yesLastVersion') }})</a>
+        {{ isBltcy ? '柏拉图AI' : 'AI' }}
       </h2>
       <div class="p-2 space-y-2 rounded-md bg-neutral-100 dark:bg-neutral-700">
-        <p v-html="$t('mj.infoStar')"></p>
+        <p>稳定快速的官方企业级中转源头，支持 OpenAI / Claude / Gemini / Midjourney / Suno 及国内人工智能大模型，定价完全透明，官方倍率，无套路、无广告、无猫腻，支持大额对公发票。</p>
       </div>
       <p>{{ $t("setting.api") }}：{{ config?.apiModel ?? '-' }}</p>
       <p v-if="isChatGPTAPI" class=" flex items-center justify-between">
@@ -103,10 +100,6 @@ const  isShow = computed(()=>{
       <p v-if="!isChatGPTAPI">
         {{ $t("setting.reverseProxy") }}：{{ config?.reverseProxy ?? '-' }}
       </p>
-       
-      <!-- <p>{{ $t("setting.timeout") }}：{{ config?.timeoutMs ?? '-' }}</p>  -->
-      <!-- <p>{{ $t("setting.socks") }}：{{ config?.socksProxy ?? '-' }}</p>
-      <p>{{ $t("setting.httpsProxy") }}：{{ config?.httpsProxy ?? '-' }}</p> -->
     </div>
   </NSpin>
 </template>

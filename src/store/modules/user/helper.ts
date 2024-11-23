@@ -1,8 +1,17 @@
+/*
+ * @Author: heyan
+ * @Date: 2024-11-23 17:04:30
+ * @LastEditors: heyan
+ * @LastEditTime: 2024-11-23 17:33:49
+ * @Description: 
+ */
 import { ss } from '@/utils/storage'
 import { t } from '@/locales'
 import { homeStore } from "@/store";
 const LOCAL_NAME = 'userStorage'
 const backgroundImage = homeStore.myData.session.backgroundImage ?? "https://t.alcy.cc/fj/"
+// 引入环境变量
+const isBltcy = import.meta.env.VITE_GLOB_APP_IS_BLTCY ?? false;
 
 export interface UserInfo {
   avatar: string
@@ -18,9 +27,9 @@ export interface UserState {
 export function defaultSetting(): UserState {
   return {
     userInfo: {
-      avatar: 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg',
-      name:  t('mjset.sysname'),//'AI绘图',
-      description: 'Star on <a href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" class="text-blue-500" target="_blank" >GitHub</a>',
+      avatar: isBltcy ? '/logo.png' : 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg',
+      name: isBltcy ? '柏拉图AI' : t('mjset.sysname'),//'AI绘图',
+      description: isBltcy ? '前往 <a href="https://one-api.bltcy.top/topup" class="text-blue-500" target="_blank" >充值</a>' : '',
     },
   }
 }
