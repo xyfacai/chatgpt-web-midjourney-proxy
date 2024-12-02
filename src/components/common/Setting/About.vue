@@ -5,7 +5,6 @@ import pkg from '../../../../package.json'
 import { fetchChatConfig ,getLastVersion} from '@/api'
 import { useAuthStore } from '@/store'
 import { gptUsage  } from "@/api";
-const isBltcy = import.meta.env.VITE_GLOB_APP_IS_BLTCY ?? false
 
 interface ConfigState {
   timeoutMs?: number

@@ -2,16 +2,15 @@
  * @Author: heyan
  * @Date: 2024-11-23 17:04:30
  * @LastEditors: heyan
- * @LastEditTime: 2024-11-23 17:33:49
+ * @LastEditTime: 2024-12-02 15:20:35
  * @Description: 
  */
 import { ss } from '@/utils/storage'
 import { t } from '@/locales'
 import { homeStore } from "@/store";
 const LOCAL_NAME = 'userStorage'
-const backgroundImage = homeStore.myData.session.backgroundImage ?? "https://t.alcy.cc/fj/"
 // 引入环境变量
-const isBltcy = import.meta.env.VITE_GLOB_APP_IS_BLTCY ?? false;
+const isBltcy = import.meta.env.VITE_GLOB_APP_IS_BLTCY === 'true';
 
 export interface UserInfo {
   avatar: string
