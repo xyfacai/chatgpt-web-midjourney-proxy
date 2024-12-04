@@ -2,7 +2,7 @@
  * @Author: heyan
  * @Date: 2024-11-23 17:04:30
  * @LastEditors: heyan
- * @LastEditTime: 2024-12-02 15:20:35
+ * @LastEditTime: 2024-12-04 19:01:41
  * @Description: 
  */
 import { ss } from '@/utils/storage'
@@ -28,7 +28,7 @@ export function defaultSetting(): UserState {
     userInfo: {
       avatar: isBltcy ? '/logo.png' : 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg',
       name: isBltcy ? '柏拉图AI' : t('mjset.sysname'),//'AI绘图',
-      description: isBltcy ? '前往 <a href="https://one-api.bltcy.top/topup" class="text-blue-500" target="_blank" >充值</a>' : '',
+      description: isBltcy ? '前往 <a href="https://api.bltcy.ai/topup" class="text-blue-500" target="_blank" >充值</a>' : '',
     },
   }
 }
