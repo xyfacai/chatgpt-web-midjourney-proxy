@@ -1,6 +1,23 @@
 # 功能升级日志
 
 #  计划 
+# 2.23.6
+- 🐞 修复：2.23.4依旧出现ds-R1不展示思考过程的问题 #611
+- 😄 新增：模型 从服务端的 /v1/models 拉起
+
+
+# 2.23.5
+- 😄 新增：`grok-3`,`grok-3-reasoner`,`grok-3-deepsearch` 模型
+- 😄 新增：`gpt-4.5-preview-2025-02-27`,`gpt-4.5-preview` 模型
+
+# 2.23.4
+- 🐞 修复：`deepseek-v3` `deepseek-r1` 识图处理，需要中转支持
+- 🐞 修复：`deepseek-r1` think 思考过程显示优化
+
+
+
+# 2.23.3
+- 😄 新增：`deepseek-v3` `deepseek-r1` 模型
 
 # 2.23.2
 - 😄 支持：Pixverse 模版特效
