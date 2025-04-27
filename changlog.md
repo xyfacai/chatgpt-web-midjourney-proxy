@@ -1,6 +1,42 @@
 # 功能升级日志
 
 #  计划 
+# 2.24.1
+- 😄 新增：gpt-image-1 dall.e-2 支持 v1/image/edit 支持多图
+- 🐞 改进：默认上传改为5M
+
+# 2.23.10
+
+- 😄 新增：gpt-image-1 这个是dall-e格式
+- 😄 新增：pixverse 的 `v4`版本
+
+# 2.23.9
+- 😄 新增：rumwayml 支持 gen4_turbo
+
+# 2.23.8
+- 🐞 改进：识图默认放开都支持 只有gpt-3.5 已知不支持
+- 🐞 改进：服务端模型 支持搜索
+
+# 2.23.7
+- 😄 新增：模型 mj 7.0
+
+# 2.23.6
+- 🐞 修复：2.23.4依旧出现ds-R1不展示思考过程的问题 #611
+- 😄 新增：模型 从服务端的 /v1/models 拉起
+
+
+# 2.23.5
+- 😄 新增：`grok-3`,`grok-3-reasoner`,`grok-3-deepsearch` 模型
+- 😄 新增：`gpt-4.5-preview-2025-02-27`,`gpt-4.5-preview` 模型
+
+# 2.23.4
+- 🐞 修复：`deepseek-v3` `deepseek-r1` 识图处理，需要中转支持
+- 🐞 修复：`deepseek-r1` think 思考过程显示优化
+
+
+
+# 2.23.3
+- 😄 新增：`deepseek-v3` `deepseek-r1` 模型
 
 # 2.23.2
 - 😄 支持：Pixverse 模版特效

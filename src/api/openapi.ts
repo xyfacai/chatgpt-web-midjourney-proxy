@@ -43,8 +43,13 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "claude-3-haiku-20240307": "2023-08",
   "claude-3-5-sonnet-20240620": "2024-04",
   "claude-3-5-sonnet-20241022": "2024-04",
+  "claude-3-7-sonnet-20250219": "2024-04",
   "gemini-pro": "2023-12",
   "gemini-pro-vision": "2023-12",
+  "gpt-4.5-preview-2025-02-27": "2024-10",
+  "gpt-4.5-preview": "2024-10",
+  "deepseek-v3": "2023-12",
+  "deepseek-r1": "2023-12",
   "gemini-pro-1.5": "2024-04"
 };
 
@@ -220,9 +225,20 @@ export const whisperUpload = ( FormData:FormData )=>{
     })
 }
 
+//gpt 文件上传 /v1/image/edits
+export const gptUploadFile=   (url :string, FormData:FormData)=>{
+    url=  gptGetUrl( url);
+    let headers=   {'Content-Type': 'multipart/form-data' }
+    headers={...headers,...getHeaderAuthorization()}
+
+    return axios.post( url , FormData, {  headers  })
+
+}
+
 export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let d:any;
    let action= data.action;
+   // mlog("gp-image-1 base64Array ",   data.base64Array   )
    //chat.myid=  `${Date.now()}`;
    if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
          mlog("ddlog 数据 ", data.data  )
@@ -241,6 +257,50 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
             chat.loading=false;
             homeStore.setMyData({act:'updateChat', actData:chat });
          }
+   }else if(  action=='gpt.dall-e-3'  && data.data.base64Array!=undefined ){ //执行变化
+        mlog("gp-image-1 base64Array ",data.data ,  data.data.base64Array   )
+     //let d= await gptFetch('/v1/images/edits', data.data);
+     const formData = new FormData( ); 
+     for(let o in data.data ){
+        if(o=='base64Array'){
+            for(let f of data.data.base64Array){
+                 formData.append('image[]', f.file )
+            }
+        }else{
+            formData.append(o, data.data[o])
+        }
+       
+
+     }
+    mlog("formData  ",  formData   )
+    
+    //const jda=    upd.data
+    try {
+        const ds = await gptUploadFile('/v1/images/edits', formData)
+        const d=ds.data;
+        if(ds.status!=200) throw "Fail with status:"+ ds.status
+        //const d= jda;
+        //mlog("gp-image-1 结果 ",  d   )
+    
+      
+        let key= 'dall:'+chat.myid;
+        const rz : any= d.data[0];
+        if(rz.b64_json){
+            const base64='data:image/png;base64,'+rz.b64_json;
+            await localSaveAny(base64,key)
+        }
+       
+        chat.text= rz.revised_prompt??`图片已完成`;
+        chat.opt={imageUrl:rz.url?rz.url: 'https://www.openai-hk.com/res/img/open.png' } ;
+        chat.loading = false;
+        homeStore.setMyData({act:'updateChat', actData:chat });
+    } catch (e) {
+        chat.text='失败！'+"\n```json\n"+ (d?JSON.stringify(d, null, 2):e) +"\n```\n";
+        chat.loading=false;
+        homeStore.setMyData({act:'updateChat', actData:chat });
+    }
+    
+
    }else if(  action=='gpt.dall-e-3' ){ //执行变化
        // chat.model= 'dall-e-3';
        
@@ -248,8 +308,14 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
        let d= await gptFetch('/v1/images/generations', data.data);
        try{
             const rz : any= d.data[0];
+            let key= 'dall:'+chat.myid;
+      
+            if(rz.b64_json){
+                const base64='data:image/png;base64,'+rz.b64_json;
+                await localSaveAny(base64,key)
+            }
             chat.text= rz.revised_prompt??`图片已完成`;
-            chat.opt={imageUrl:rz.url } ;
+            chat.opt={imageUrl:rz.url?rz.url: 'https://www.openai-hk.com/res/img/open.png' } ;
             chat.loading = false;
             homeStore.setMyData({act:'updateChat', actData:chat });
        }catch(e){
@@ -267,6 +333,7 @@ export const isDallImageModel =(model:string|undefined)=>{
     if(!model) return false;
     if( model.indexOf('flux')>-1 ) return true; 
     if( model.indexOf('ideogram')>-1 ) return true; 
+    if( model.indexOf('gpt-image')>-1 ) return true; 
     return ['dall-e-2' ,'dall-e-3','ideogram' ].indexOf(model)>-1
       
 }
@@ -313,6 +380,8 @@ export const getSystemMessage = (uuid?:number )=>{
     let producer= 'You are ChatGPT, a large language model trained by OpenAI.'
     if(model.includes('claude')) producer=  'You are Claude, a large language model trained by Anthropic.';
     if(model.includes('gemini')) producer=  'You are Gemini, a large language model trained by Google.';
+    if(model.includes('deepseek')) producer=  'You are DeepSeek, a large language model trained by DeepSeek.';
+    if(model.includes('grok')) producer=  'You are grok, a large language model trained by xAi.';
     //用户自定义系统
     if(homeStore.myData.session.systemMessage )  producer= homeStore.myData.session.systemMessage
     
@@ -610,9 +679,11 @@ const getModelMax=( model:string )=>{
         return 16;
     }else if( model.indexOf('32k')>-1  ){
         return 32;
-    }else if( model.indexOf('gpt-4-turbo')>-1||  model.indexOf('gpt-4o')>-1 ||   model.indexOf('o1-')>-1){
+    }else if( model.indexOf('grok')>-1 ){
+       return 128; 
+    }else if(  model.indexOf('gpt-4.5')>-1|| model.indexOf('gpt-4-turbo')>-1||  model.indexOf('gpt-4o')>-1 ||   model.indexOf('o1-')>-1){
         return 128; 
-    }else if( model.indexOf('64k')>-1  ){
+    }else if( model.indexOf('64k')>-1 || model.indexOf('deepseek')>-1 ){
         return 64;
     }else if( model.indexOf('128k')>-1 
     || model=='gpt-4-1106-preview' 
