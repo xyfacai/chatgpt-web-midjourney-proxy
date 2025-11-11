@@ -25,7 +25,10 @@ export class chatSetting{
     this.uuid = uuid;
     return this
   }
-  public getGptConfig():gptConfigType {
+  public getGptConfig(): gptConfigType {
+    if (gptConfigStore.myData.model) {
+      return gptConfigStore.myData;
+    }
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
