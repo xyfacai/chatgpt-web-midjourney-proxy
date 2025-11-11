@@ -4,10 +4,10 @@ import { NLayout, NLayoutContent } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router' 
 import Permission from '../chat/layout/Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
+import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
 import { aiSider ,aiFooter} from '@/views/mj'
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
-import { mlog } from '@/api'
+import { chatSetting, mlog } from '@/api'
 
 const router = useRouter()
 const route = useRoute()
@@ -19,6 +19,33 @@ mlog('layout', route.name )
 router.replace({ name:  route.name??'video', params: { uuid: chatStore.active } })
 homeStore.setMyData({local:  route.name??'video' });
 const { isMobile } = useBasicLayout()
+
+const resolveUrlModel = () => {
+  const raw = route.query?.settings
+  if (!raw)
+    return undefined
+  const target = Array.isArray(raw) ? raw[0] : raw
+  if (typeof target !== 'string')
+    return undefined
+  try {
+    const parsed = JSON.parse(target)
+    return typeof parsed?.model === 'string' ? parsed.model as string : undefined
+  }
+  catch (error) {
+    mlog('luma-settings-parse-error', error)
+    return undefined
+  }
+}
+
+const urlModel = resolveUrlModel()
+
+if (urlModel) {
+  const uuid = Date.now()
+  gptConfigStore.setMyData({ model: urlModel })
+  const chatSet = new chatSetting(uuid)
+  chatSet.save({ model: urlModel })
+  chatStore.addHistory({ title: 'New Chat', uuid, isEdit: false })
+}
 
 const collapsed = computed(() => appStore.siderCollapsed)
 
