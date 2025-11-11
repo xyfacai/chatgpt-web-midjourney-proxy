@@ -19,19 +19,17 @@ export class chatSetting{
     this.uuid = uuid;
     //this.gptConfig = gptConfigStore.myData;
     //this.init();
-  }
+  } 
  
   public setUuid(uuid: number){
     this.uuid = uuid;
     return this
   }
   public getGptConfig():gptConfigType {
-    mlog("toMyuid16","getGptConfig", this.uuid )
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
      const rz=  arr[index];
-     //gptConfigStore.setMyData( rz );
      gptConfigStore.myData.model= rz.model;
      return rz;
   }
