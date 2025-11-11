@@ -118,7 +118,7 @@ const googleVeo= async(nowModel:DtoTpl, data:any)=>{
    const plat= nowModel.plat
    var d:any
    if (plat=="google-veo" || plat=="sora" ){
-     d = await gptFetch('/god/v1/video/create',data)
+     d = await gptFetch('/v1/video/create',data)
    }else{
     d = await gptFetch('/'+plat+'/v1/video/create',data)
    }
