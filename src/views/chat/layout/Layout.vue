@@ -9,7 +9,7 @@ import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } fr
 import { aiSider,aiFooter} from '@/views/mj' 
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
 import { t } from '@/locales'
-import { mlog, openaiSetting } from '@/api'
+import { chatSetting, mlog, openaiSetting } from '@/api'
 import { isObject } from '@/utils/is'
 
 const router = useRouter()
@@ -33,7 +33,14 @@ if(rt.name =='GPTs'){
   ms.success( t('mj.modleSuccess') );
 }
 
- 
+const model = rt.query?.settings ? JSON.parse(rt.query?.settings)?.model : null
+if (model) {
+  const uuid = Date.now()
+  gptConfigStore.setMyData({ model })
+  new chatSetting(uuid).save({ model })
+  chatStore.addHistory({ title: 'New Chat', uuid, isEdit: false })
+  ms.success(t('mj.modleSuccess'))
+}
 
 router.replace({ name: 'Chat', params: { uuid: chatStore.active } })
 homeStore.setMyData({local:'Chat'});
