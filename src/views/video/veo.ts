@@ -11,11 +11,11 @@ export interface DtoTpl{
 }
 export interface DtoField{
     key:string
-    type:string 
-    value?:any           
-    max?:number           
-    placeholder?:string           
-    options?:  {labal:string,value:string}[]           
+    type:string
+    value?:any
+    max?:number
+    placeholder?:string
+    options?:  {labal:string,value:string}[]
 }
 
 const csuno= new DtoStore()
@@ -24,7 +24,7 @@ export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
     mlog('PostVideo',nowModel);
     mlog('data ',data);
     let rz:DtoItem
-     
+
     const plat= nowModel.plat
     if( plat=="google-veo" ||  plat=="sora" ){
         rz= await googleVeo(nowModel,data)
@@ -34,7 +34,7 @@ export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
         rz= await falAI(nowModel,data)
     }else{
         mlog("plat",plat, "这个平台没有指定")
-        return 
+        return
     }
     rz.model= nowModel.model
     csuno.save( rz)
@@ -74,10 +74,10 @@ const falAI= async(nowModel:DtoTpl, data:any)=>{
 }
 
 const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
-    data['model']= nowModel.key?? nowModel.model 
+    data['model']= nowModel.key?? nowModel.model
     //var d:any
     //d = await gptFetch('/v1/videos',data)
-    const formData = new FormData( ); 
+    const formData = new FormData( );
      for(let o in data ){
         if(o=='input_reference'&&   data[o]?.file ){
             // for(let f of data.data.base64Array){
@@ -87,11 +87,11 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
         }else{
             formData.append(o, data[o])
         }
-       
+
 
      }
     //mlog("formData  ",  formData   )
-    
+
     //const jda=    upd.data
     //try {
         const ds = await gptUploadFile('/v1/videos', formData)
@@ -114,7 +114,7 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
 }
 
 const googleVeo= async(nowModel:DtoTpl, data:any)=>{
-   data['model']= nowModel.model 
+   data['model']= nowModel.model
    const plat= nowModel.plat
    var d:any
    if (plat=="google-veo" || plat=="sora" ){
@@ -139,10 +139,10 @@ export const falAiFeed= async( id:string)=>{
     for(let i=0;i<60;i++){
         let  rz= csuno.getOneById(id)
         if(!rz){
-            return 
+            return
         }
-        if(rz?.status=='completed'||  rz?.status=='failed'){    
-            return 
+        if(rz?.status=='completed'||  rz?.status=='failed'){
+            return
         }
         if(!rz.model){
             rz.model='fal-ai/ltxv-13b-098-distilled/image-to-video'
@@ -157,7 +157,7 @@ export const falAiFeed= async( id:string)=>{
         } catch (error) {
             rz.status= 'pending'
         }
-        
+
 
         rz.last_feed=Math.floor(Date.now() / 1000)
         console.log('ddd',d, rz );
@@ -167,18 +167,18 @@ export const falAiFeed= async( id:string)=>{
    }
 
 }
-     
+
 export const openaiVideoFeed=async( id:string)=>{
 for(let i=0;i<60;i++){
         let  rz= csuno.getOneById(id)
         if(!rz){
-            return 
+            return
         }
-        if(rz?.status=='completed'||  rz?.status=='failed'){    
-            return 
+        if(rz?.status=='completed'||  rz?.status=='failed'){
+            return
         }
-         
-        const url= '/v1/videos/'+ rz.mid; 
+
+        const url= '/v1/videos/'+ rz.mid;
         try {
             const d:any = await gptFetch(url)
             if(d.status=='failed'){
@@ -196,7 +196,7 @@ for(let i=0;i<60;i++){
         } catch (error) {
             rz.status= 'pending'
         }
-        
+
 
         rz.last_feed=Math.floor(Date.now() / 1000)
         console.log('ddd',  rz );
@@ -208,14 +208,14 @@ for(let i=0;i<60;i++){
 export const googleVeoFeed= async( id:string)=>{
     for(let i=0;i<60;i++){
         let  rz= csuno.getOneById(id)
-        if(rz?.status=='completed'||  rz?.status=='failed'){    
-            break 
+        if(rz?.status=='completed'||  rz?.status=='failed'){
+            break
         }
         var d:any
         if (rz && rz.plat!='google-veo' && rz.plat!=''){
-             d = await gptFetch(`/${rz.plat}/v1/video/feed/${id}`)
+             d = await gptFetch(`/v1/video/query?id=${id}`)
         }else{
-            d = await gptFetch(`/veo/v1/video/feed/${id}`)
+            d = await gptFetch(`/v1/video/query?id=${id}`)
         }
         if(!rz){
             rz={
@@ -229,7 +229,7 @@ export const googleVeoFeed= async( id:string)=>{
 
             }
         }
-      
+
         rz.last_feed=Math.floor(Date.now() / 1000)
         rz.status= d.status?? rz.status
         rz.url= d.video_url??''
@@ -239,7 +239,7 @@ export const googleVeoFeed= async( id:string)=>{
         await sleep(3000)
 
      }
-    
+
 }
 
 
