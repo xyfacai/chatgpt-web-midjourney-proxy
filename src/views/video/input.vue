@@ -71,6 +71,58 @@ const isDisabled= computed(()=>{
 })
 
 const ms= useMessage();
+// 提取错误信息的辅助函数
+const getErrorMessage = (error: any): string => {
+    // 如果是字符串错误
+    if (typeof error === 'string') {
+        return error;
+    }
+    
+    // 如果是 axios 错误响应
+    if (error?.response?.data) {
+        const data = error.response.data;
+        return data?.error?.message || data?.message || `HTTP ${error.response.status}: ${error.response.statusText}`;
+    }
+    
+    // 如果是带有 reason 的自定义错误
+    if (error?.reason) {
+        try {
+            const reasonObj = JSON.parse(error.reason);
+            return reasonObj?.message || error.reason;
+        } catch {
+            return error.reason;
+        }
+    }
+    
+    // 如果是标准 Error 对象
+    if (error?.message) {
+        return error.message;
+    }
+    
+    // 网络错误处理
+    if (error?.name === 'TypeError' && error?.message === 'Failed to fetch') {
+        return '网络连接错误，请检查网络设置';
+    }
+    
+    // 如果是包含错误信息的对象
+    if (error?.error?.message) {
+        return error.error.message;
+    }
+    
+    // 尝试 JSON 序列化来获取更多信息
+    try {
+        const errorStr = JSON.stringify(error);
+        if (errorStr !== '{}') {
+            return `请求失败: ${errorStr}`;
+        }
+    } catch {
+        // 忽略序列化错误
+    }
+    
+    // 默认错误信息
+    return t('mj.createFail') + ' (未知错误)';
+};
+
 const create= async ()=>{
     if(!nowModel.value){
         ms.error(t('video.selectModel') )
@@ -92,7 +144,8 @@ const create= async ()=>{
         await PostVideo( nowModel.value, data);
     } catch (error) {
         mlog('err',error )
-        ms.error( t('mj.createFail') );
+        const errorMessage = getErrorMessage(error);
+        ms.error(errorMessage);
     }
     st.value.isLoading=false
 }

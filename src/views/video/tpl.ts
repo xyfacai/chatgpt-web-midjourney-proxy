@@ -1,97 +1,6 @@
 export const mytpl={
 "tpl":[
     {
-        "model":"sora-2",
-        "field":[
-           {
-            "key":"prompt",
-                "type":"textarea",
-                "placeholder":"Video Description",
-                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在平台上使用，太好用了。"
-               
-            }
-            
-             ,{
-                "key":"orientation",
-                "type":"select",
-                "value":"portrait",
-                "options":[
-                    { "label":"模式: 竖屏", "value":"portrait"}
-                    ,{ "label":"模式: 横屏", "value":"landscape"}
-                ]
-            } 
-             ,{
-                "key":"duration",
-                "type":"select",
-                "value":15,
-                "options":[
-                    { "label":"Duration: 15s", "value":15}
-                    ,{ "label":"Duration: 10s", "value":10}
-                ]
-            }
-            ,
-            
-            {   
-                "key":"images",
-                "type":"image_base64_url_array",
-                "max":2
-            }     
-        ]
-        ,"plat":"sora"
-    },
-    
-    {
-        "model":"sora-2-pro",
-        "field":[
-           {
-            "key":"prompt",
-                "type":"textarea",
-                "placeholder":"Video Description",
-                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在平台上使用，太好用了。"
-               
-            }
-            
-             ,{
-                "key":"orientation",
-                "type":"select",
-                "value":"portrait",
-                "options":[
-                    { "label":"模式: 竖屏", "value":"portrait"}
-                    ,{ "label":"模式: 横屏", "value":"landscape"}
-                ]
-            }
-             ,{
-                "key":"size",
-                "type":"select",
-                "value":"large",
-                "options":[
-                    { "label":"清晰: 高清", "value":"large"}
-                    ,{ "label":"清晰: 一般", "value":"small"}
-                ]
-            }
-             ,{
-                "key":"duration",
-                "type":"select",
-                "value":15,
-                "options":[
-                    { "label":"Duration: 25s", "value":25}
-                    ,{ "label":"Duration: 15s", "value":15}
-                    ,{ "label":"Duration: 10s", "value":10}
-                ]
-            }
-            
-            ,
-            
-            {   
-                "key":"images",
-                "type":"image_base64_url_array",
-                "max":2
-            }     
-        ]
-        ,"plat":"sora"
-    },
-
-    {
         "model":"openai/sora-2",
         "key":"sora-2",
         "field":[
@@ -100,9 +9,9 @@ export const mytpl={
                 "type":"textarea",
                 "placeholder":"Video Description",
                 "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在平台上使用，太好用了。"
-               
+
             }
-            
+
              ,{
                 "key":"size",
                 "type":"select",
@@ -111,7 +20,7 @@ export const mytpl={
                     { "label":"size: 720x1280", "value":"720x1280"}
                     ,{ "label":"size: 1280x720", "value":"1280x720"}
                 ]
-            } 
+            }
              ,{
                 "key":"seconds",
                 "type":"select",
@@ -124,12 +33,12 @@ export const mytpl={
                 ]
             }
             ,
-            
-            {   
+
+            {
                 "key":"input_reference",
                 "type":"image_base64_file",
                 "max":1
-            }     
+            }
         ]
         ,"plat":"openai"
     },
@@ -144,9 +53,9 @@ export const mytpl={
                 "type":"textarea",
                 "placeholder":"Video Description",
                 "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在平台上使用，太好用了。"
-               
+
             }
-            
+
              ,{
                 "key":"size",
                 "type":"select",
@@ -155,7 +64,7 @@ export const mytpl={
                     { "label":"size: 720x1280", "value":"720x1280"}
                     ,{ "label":"size: 1280x720", "value":"1280x720"}
                 ]
-            } 
+            }
              ,{
                 "key":"seconds",
                 "type":"select",
@@ -169,16 +78,16 @@ export const mytpl={
                 ]
             }
             ,
-            
-            {   
+
+            {
                 "key":"input_reference",
                 "type":"image_base64_file",
                 "max":1
-            }     
+            }
         ]
         ,"plat":"openai"
     },
-   
+
     {
         "model":"veo3.1",
        "field":[
@@ -201,11 +110,11 @@ export const mytpl={
                     ,{ "label":"Ratio 9:16", "value":"9:16"}
                 ]
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":1
-            }     
+            }
         ]
         ,"plat":"google-veo"
     } ,
@@ -231,11 +140,11 @@ export const mytpl={
                     ,{ "label":"Ratio 9:16", "value":"9:16"}
                 ]
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":1
-            }     
+            }
         ]
         ,"plat":"google-veo"
     } ,
@@ -252,11 +161,11 @@ export const mytpl={
                 "type":"no",
                 "value":true
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":3
-            }     
+            }
         ]
         ,"plat":"google-veo"
     } ,
@@ -267,18 +176,18 @@ export const mytpl={
             "key":"prompt",
                 "type":"textarea",
                 "placeholder":"Video Description"
-               
+
             }
             ,{
                 "key":"enhance_prompt",
                 "type":"no",
                 "value":true
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":2
-            }     
+            }
         ]
         ,"plat":"google-veo"
     },
@@ -289,18 +198,18 @@ export const mytpl={
             "key":"prompt",
                 "type":"textarea",
                 "placeholder":"Video Description"
-               
+
             }
             ,{
                 "key":"enhance_prompt",
                 "type":"no",
                 "value":true
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":2
-            }     
+            }
         ]
         ,"plat":"google-veo"
     },
@@ -317,11 +226,11 @@ export const mytpl={
                 "type":"no",
                 "value":true
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":3
-            }     
+            }
         ]
         ,"plat":"google-veo"
     } ,
@@ -411,11 +320,11 @@ export const mytpl={
                 "type":"no",
                 "value":true
             },
-            {   
+            {
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":1
-            }     
+            }
         ]
         ,"plat":"google-veo"
     },{
@@ -436,11 +345,11 @@ export const mytpl={
                 ,{ "label":"Resolution 720p", "value":"720p"}
             ]
 
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://storage.googleapis.com/falserverless/example_inputs/ltxv-image-input.jpg"
-        }     
+        }
         ]
 
     },{
@@ -468,7 +377,7 @@ export const mytpl={
                     ,{ "label":"Ratio 9:16", "value":"9:16"}
                     ,{ "label":"Ratio 1:1", "value":"1:1"}
                 ]
-        } 
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -496,7 +405,7 @@ export const mytpl={
                     ,{ "label":"Ratio 9:16", "value":"9:16"}
                     ,{ "label":"Ratio 1:1", "value":"1:1"}
                 ]
-        } 
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -515,11 +424,11 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 10s", "value": 10}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://v3.fal.media/files/lion/_I_io6Gtk83c72d-afXf8_image.webp"
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -538,11 +447,11 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 10s", "value": 10}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://v3.fal.media/files/lion/_I_io6Gtk83c72d-afXf8_image.webp"
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -561,11 +470,11 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 10s", "value": 10}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://v3.fal.media/files/zebra/9Nrm22YyLojSTPJbZYNhh_image.webp"
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -576,7 +485,7 @@ export const mytpl={
             "type":"textarea",
             "placeholder":"Video Description",
             "value":"A Galactic Smuggler is a rogue figure with a cybernetic arm and a well-worn coat that hints at many dangerous escapades across the galaxy. Their ship is filled with rare and exotic treasures from distant planets, concealed in hidden compartments, showing their expertise in illicit trade. Their belt is adorned with energy-based weapons, ready to be drawn at any moment to protect themselves or escape from tight situations. This character thrives in the shadows of space, navigating between the law and chaos with stealth and wit, always seeking the next big score while evading bounty hunters and law enforcement. The rogue's ship, rugged yet efficient, serves as both a home and a tool for their dangerous lifestyle. The treasures they collect reflect the diverse and intriguing worlds they've encountered—alien artifacts, rare minerals, and artifacts of unknown origin. Their reputation precedes them, with whispers of their dealings and the deadly encounters that often follow. A master of negotiation and deception, the Galactic Smuggler navigates the cosmos with an eye on the horizon, always one step ahead of those who pursue them."
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -587,7 +496,7 @@ export const mytpl={
             "type":"textarea",
             "placeholder":"Video Description",
             "value":"A Galactic Smuggler is a rogue figure with a cybernetic arm and a well-worn coat that hints at many dangerous escapades across the galaxy. Their ship is filled with rare and exotic treasures from distant planets, concealed in hidden compartments, showing their expertise in illicit trade. Their belt is adorned with energy-based weapons, ready to be drawn at any moment to protect themselves or escape from tight situations. This character thrives in the shadows of space, navigating between the law and chaos with stealth and wit, always seeking the next big score while evading bounty hunters and law enforcement. The rogue's ship, rugged yet efficient, serves as both a home and a tool for their dangerous lifestyle. The treasures they collect reflect the diverse and intriguing worlds they've encountered—alien artifacts, rare minerals, and artifacts of unknown origin. Their reputation precedes them, with whispers of their dealings and the deadly encounters that often follow. A master of negotiation and deception, the Galactic Smuggler navigates the cosmos with an eye on the horizon, always one step ahead of those who pursue them."
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -606,11 +515,11 @@ export const mytpl={
                 { "label":"Duration 6s", "value":6}
                 ,{ "label":"Duration 10s", "value": 10}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://v3.fal.media/files/tiger/U9HN_tm5-3Ls52SbD6CrW_image.webp"
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -638,11 +547,11 @@ export const mytpl={
                 ,{ "label":"Resolution 768P", "value":"768P"}
             ]
 
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://storage.googleapis.com/falserverless/model_tests/minimax/1749891352437225630-389852416840474630_1749891352.png"
-        }     
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -670,11 +579,11 @@ export const mytpl={
                 ,{ "label":"Resolution 768P", "value":"768P"}
             ]
 
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://storage.googleapis.com/falserverless/model_tests/minimax/1749891352437225630-389852416840474630_1749891352.png"
-        }     
+        }
         ],
         "plat":"fal-ai"
     }
@@ -717,7 +626,7 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 8s", "value": 8}
             ]
-        }    
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -758,7 +667,7 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 8s", "value": 8}
             ]
-        }   
+        }
         ],
         "plat":"fal-ai"
     }
@@ -800,12 +709,12 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 8s", "value": 8}
             ]
-        }  
+        }
         ],
         "plat":"fal-ai"
     }
 
- 
+
     ,{
       "model":"fal-ai/pika/v2.1/image-to-video",
       "field":[
@@ -831,11 +740,11 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 8s", "value": 8}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://v3.fal.media/files/elephant/dJjBQXNHRbGJn4aUv4-g9_hearth.jpg"
-        }       
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -863,11 +772,11 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 8s", "value": 8}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://storage.googleapis.com/falserverless/web-examples/pika/pika%202.2/pika_input.png"
-        }       
+        }
         ],
         "plat":"fal-ai"
     },{
@@ -895,11 +804,11 @@ export const mytpl={
                 { "label":"Duration 5s", "value":5}
                 ,{ "label":"Duration 8s", "value": 8}
             ]
-        },{   
+        },{
                 "key":"image_url",
                 "type":"image_base64_url",
                 "value":"https://v3.fal.media/files/elephant/dJjBQXNHRbGJn4aUv4-g9_hearth.jpg"
-        }       
+        }
         ],
         "plat":"fal-ai"
     }
