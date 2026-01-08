@@ -13,7 +13,7 @@ const route = useRoute(); // 获取当前路由对象
 
 //"fal-ai/ltxv-13b-098-distilled/image-to-video"
 //const st= ref({"model":"veo3-fast-frames",isLoading:false});
-const st= ref({"model":"sora-2",isLoading:false});
+const st= ref({"model":"openai/sora-2",isLoading:false});
 const stArr= ref<any[]>([])
 const modelsOption= ref<{label:string,value:string}[]>([])
 const tplArr= ref<DtoTpl[]>([])
@@ -30,10 +30,10 @@ const initStart= ()=>{
     const abc=()=>{
          let arr=[{label:'Please select Model',value: ''}];
             for( let o of mytpl.tpl){
-                
+
                 arr.push({label: o.model,value: o.model})
-                
-               
+
+
             }
             return arr
     }
@@ -52,18 +52,18 @@ const initStart= ()=>{
 
 }
 initStart();
- 
+
 const nowTpl= computed(()=>{
     //let arr:any[]=[];
     mlog("nowTpl",st.value.model)
     stArr.value=[];
     const mtpl= tplArr.value.find(v=> v.model==st.value.model)
-    
+
     if(!mtpl) return [];
     for( let o of mtpl.field){
         stArr.value.push(o.value??'')
     }
-    return mtpl.field 
+    return mtpl.field
 })
 
 const isDisabled= computed(()=>{
@@ -77,13 +77,13 @@ const getErrorMessage = (error: any): string => {
     if (typeof error === 'string') {
         return error;
     }
-    
+
     // 如果是 axios 错误响应
     if (error?.response?.data) {
         const data = error.response.data;
         return data?.error?.message || data?.message || `HTTP ${error.response.status}: ${error.response.statusText}`;
     }
-    
+
     // 如果是带有 reason 的自定义错误
     if (error?.reason) {
         try {
@@ -93,22 +93,22 @@ const getErrorMessage = (error: any): string => {
             return error.reason;
         }
     }
-    
+
     // 如果是标准 Error 对象
     if (error?.message) {
         return error.message;
     }
-    
+
     // 网络错误处理
     if (error?.name === 'TypeError' && error?.message === 'Failed to fetch') {
         return '网络连接错误，请检查网络设置';
     }
-    
+
     // 如果是包含错误信息的对象
     if (error?.error?.message) {
         return error.error.message;
     }
-    
+
     // 尝试 JSON 序列化来获取更多信息
     try {
         const errorStr = JSON.stringify(error);
@@ -118,7 +118,7 @@ const getErrorMessage = (error: any): string => {
     } catch {
         // 忽略序列化错误
     }
-    
+
     // 默认错误信息
     return t('mj.createFail') + ' (未知错误)';
 };
@@ -126,7 +126,7 @@ const getErrorMessage = (error: any): string => {
 const create= async ()=>{
     if(!nowModel.value){
         ms.error(t('video.selectModel') )
-        return 
+        return
     }
     st.value.isLoading=true
     let data={}
@@ -163,7 +163,7 @@ onMounted(() => {
 })
 
 
- 
+
 </script>
 <template>
 <div  class="p-2">
@@ -196,12 +196,12 @@ onMounted(() => {
                 <n-select v-model:value="stArr[k]" :options="tp.options" size="small"></n-select>
             </div>
         </template>
-    
+
         <div class="mt-3 flex justify-end items-center">
             <div class="flex ">
                 <n-button type="primary" :block="true" :disabled="isDisabled" @click="create()"  >
-                    <SvgIcon icon="mingcute:send-plane-fill" />   
-                    {{ $t('video.generate') }} 
+                    <SvgIcon icon="mingcute:send-plane-fill" />
+                    {{ $t('video.generate') }}
                 </n-button>
             </div>
         </div>
